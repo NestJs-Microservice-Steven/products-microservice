@@ -9,7 +9,7 @@ export class CreateProductDto {
 	@IsNumber({ maxDecimalPlaces: 4,})
 	@Min(0)  // el numero minimo que puede aceptar es 0
 	@Type(() => Number) // intenta convertir el tipo string a un numero
-	public price: string;
+	public price: number;
 
 
 }

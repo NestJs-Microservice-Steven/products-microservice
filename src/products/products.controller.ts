@@ -13,7 +13,7 @@ export class ProductsController {
   @MessagePattern({ cmd: 'create_product' }) //! muy importante la definicion dentro de los parentesis porque asi es como se va a llamar luego en otro servicio
   create(@Payload() createProductDto: CreateProductDto) {
     //! como no son peticiones HTTP no se reciben por medio del @BODY si no del @PAYLOAD
-    return this.productsService.create(createProductDto);
+    return this.productsService.create( createProductDto);
   }
 
   //@Get()

@@ -6,12 +6,14 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { options } from 'joi';
 
 async function bootstrap() {
+
+
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
-      transport: Transport.TCP,
+      transport: Transport.NATS,
       options: {
-        port: envs.port
+        servers: envs.natsServers
       }
     }
   );
@@ -25,6 +27,7 @@ async function bootstrap() {
 
   await app.listen();
   console.log(`Products Microservice running on port ${ envs.port }`)
+
 
 }
 bootstrap();

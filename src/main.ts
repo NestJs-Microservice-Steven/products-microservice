@@ -1,12 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
-import { envs } from './config'
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { envs } from './config';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { options } from 'joi';
 
 async function bootstrap() {
 
+  const logger = new Logger('Main');
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
@@ -18,17 +18,15 @@ async function bootstrap() {
     }
   );
 
-  app.useGlobalPipes( // necesitario para que el class validator de los DTO funcione correctamente //
+  app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
-      forbidNonWhitelisted : true,
+      forbidNonWhitelisted: true,
     }),
-  )
+  );
 
   await app.listen();
-  console.log(`Products Microservice running on port ${ envs.port }`)
-
+  logger.log(`Products Microservice running on port ${ envs.port }`);
 
 }
 bootstrap();
-
